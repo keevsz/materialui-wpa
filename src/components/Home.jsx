@@ -2,7 +2,8 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Grid, List, ListItem, makeStyles } from "@material-ui/core";
 import { Paper } from "@mui/material";
-import logo from './logo.png';
+import logo from "./logo.png";
+import { useAuth } from "../context/authContext";
 
 const useStyles = makeStyles({
   root: {
@@ -17,6 +18,14 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
 
+  const { user, logout } = useAuth();
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Paper className="animate__animated animate__fadeIn">
       <Grid
@@ -32,12 +41,7 @@ const Home = () => {
             justify="center"
             direction="row"
           >
-            <Typography
-              fontFamily="Times"
-              variant="h3"
-              color="initial"
-              
-            >
+            <Typography fontFamily="Times" variant="h3" color="initial">
               Bienvenido
             </Typography>
           </Grid>
@@ -50,11 +54,7 @@ const Home = () => {
           >
             <div>
               <ListItem>
-                <img
-                  src={logo}
-                  alt="Logo"
-                  width="100px"
-                />
+                <img src={logo} alt="Logo" width="100px" />
               </ListItem>
             </div>
           </Grid>
@@ -66,11 +66,7 @@ const Home = () => {
           >
             <div>
               <ListItem>
-                <Typography
-                  variant="subtitle2"
-                  color="initial"
-                  fontSize={20}
-                >
+                <Typography variant="subtitle2" color="initial" fontSize={20}>
                   Material UI
                 </Typography>
               </ListItem>

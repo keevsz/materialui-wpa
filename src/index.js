@@ -8,19 +8,34 @@ import Tipografia from "./components/Tipografia";
 import Personalizados from "./components/Personalizados";
 import Home from "./components/Home";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { AuthProvider } from "./context/authContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Login } from "./components/Login";
+import { Register } from "./components/Register";
+import {Reset} from "./components/Reset"
 
 
 ReactDOM.render(
   <BrowserRouter>
+  <AuthProvider>
     <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<Home />} />
-        <Route path="/botones" element={<Botones />} />
-        <Route path="/iconos" element={<Iconos />} />
-        <Route path="/tipografia" element={<Tipografia />} />
-        <Route path="/personalizados" element={<Personalizados />} />
+      
+
+      <Route path="/" element={ <App />  }> 
+        <Route index element={<ProtectedRoute><Home /></ ProtectedRoute>} />
+        <Route path="/botones" element={<ProtectedRoute> <Botones /> </ ProtectedRoute>} />
+        <Route path="/iconos" element={<ProtectedRoute> <Iconos /> </ ProtectedRoute>} />
+        <Route path="/tipografia" element={<ProtectedRoute> <Tipografia /> </ ProtectedRoute>} />
+        <Route path="/personalizados" element={<ProtectedRoute> <Personalizados /> </ ProtectedRoute>} />
       </Route>
+      <Route path="/login" element={ <Login />  }> </Route>
+      <Route path="/register" element={ <Register />  }> </Route>
+      <Route path="/resetpassword" element={ <Reset />  }> </Route>
+
+     
+      
     </Routes>
+    </AuthProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );
